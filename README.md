@@ -1,11 +1,11 @@
 A small frontend project to track finances, view transactions and get a quick idea of where money is going.This is built mainly to show how I approach structuring a UI heavy app.
 
-# What this is
+### What this is
 
 This is not meant to be a full product. There’s no backend, no auth, no real persistence.  
 The goal here was to take a simple problem i.e “show financial activity in a dashboard” and break it down into something clean, understandable and easy to extend.
 
-# What it does
+### What it does
 
 - Shows a basic financial overview (balance, income, expenses)
 - Displays trends and category wise spending using charts
@@ -17,11 +17,11 @@ The goal here was to take a simple problem i.e “show financial activity in a d
 - Supports light/dark mode
 - Allows exporting data (CSV/JSON)
 
-# Why I built it this way
+### Why I built it this way
 
 I tried to keep one main rule while building this: UI should be simple, logic should be separate and nothing should be doing too many things.
 
-# Components
+### Components
 
 I didn’t want large “do everything” components.  
 So things like:
@@ -34,7 +34,7 @@ Even if it feels like more files right now  it makes it easier to:
   1) change one thing without breaking others
   2) reuse parts later
 
-# Context instead of Redux 
+### Context instead of Redux 
 
 I went with React Context for:
 - role
@@ -46,7 +46,7 @@ Reason:
 - Easier to read and explain
 If this grew bigger I’d probably move to something like Zustand or Redux Toolkit.
 
-# Hooks for logic
+### Hooks for logic
 
 Filtering, insights and export logic are not inside components.
 Instead:
@@ -55,7 +55,7 @@ Instead:
 3)'useExport' : data conversion (CSV/JSON)
 This keeps components focused on rendering and avoids repetition.
 
-# Why separate Insights page?
+### Why separate Insights page?
 
 At first, insights were part of the dashboard but it started feeling repetitive and cluttered.
 So I split it:
@@ -63,7 +63,7 @@ So I split it:
 - Insights :  interpretation (what the data actually means)
 This made both screens simpler and easier to scan.
 
-# Naming decisions
+### Naming decisions
 
 Some names are intentionally short:
 - 'Row.jsx'
@@ -72,7 +72,7 @@ Some names are intentionally short:
 I avoided overly long names because in real projects those get annoying quickly.  
 The folder structure already gives enough context.
 
-# Structure 
+### Structure 
 
 Not going too deep here, just how things are split:
 - 'components/' → UI only  
@@ -82,7 +82,7 @@ Not going too deep here, just how things are split:
 - 'utils/' → calculations and formatting  
 The idea was to keep logic out of UI as much as possible.
 
-# Assumptions I made
+### Assumptions I made
 
 Since there’s no backend:
 - Data is mocked
@@ -90,7 +90,7 @@ Since there’s no backend:
 - Role switching is just simulated from UI
 - No real persistence (can be added later)
 
-# Trade-offs
+### Trade-offs
 
 Some conscious decisions while building:
 - Used simple charts instead of advanced analytics to keep focus on structure and readability  
@@ -99,7 +99,7 @@ Some conscious decisions while building:
 - Didn’t add backend integration but structured  'TransactionsContext' so API calls can replace mock data easily later  
 Basically tried to balance “good structure” vs “not overbuilding”
 
-# Backend readiness (what happens if this grows)
+### Backend readiness (what happens if this grows)
 
 Right now data is coming from a local file, but:
 - 'TransactionsContext' is already acting like a data layer  
@@ -109,7 +109,7 @@ So replacing mock data with API calls would mostly involve:
 - handling loading/error states  
 No major restructuring needed.
 
-# If I had more time
+### If I had more time
 
 Things I would improve:
 - Add proper form for transactions (with validation)
