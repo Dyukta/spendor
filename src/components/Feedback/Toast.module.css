@@ -1,0 +1,21 @@
+.stack {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  display: flex; flex-direction: column;
+  gap: 8px; z-index: 1000;
+}
+.toast {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 500;
+  box-shadow: var(--shadow-md);
+  animation: fadeUp 200ms ease both;
+  min-width: 220px; max-width: 320px;
+  border: 1px solid;
+}
+.toast span { flex: 1; }
+.success { background: var(--green-bg); color: var(--green); border-color: var(--green); }
+.error   { background: var(--red-bg);   color: var(--red);   border-color: var(--red);   }
+.close   { opacity: 0.6; padding: 2px; border-radius: 4px; }
+.close:hover { opacity: 1; }
