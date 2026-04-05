@@ -4,7 +4,6 @@ import Filters from '../components/transactions/Filters'
 import Table from '../components/transactions/Table'
 import TransactionModal from '../components/transactions/TransactionModal'
 import AddBtn from '../components/ui/AddBtn'
-import ExportBtn from '../components/ui/ExportBtn'
 import { useTransactionFilters } from '../hooks/useTransactions'
 import { useRole } from '../context/RoleContext'
 import { useTransactions } from '../context/TransactionsContext'
@@ -35,7 +34,6 @@ export default function Transactions() {
         subtitle={`${filters.filtered.length} transactions`}
         actions={
           <div className="flex gap-2">
-            <ExportBtn />
             {permissions.canAdd && <AddBtn onClick={() => setModal('add')} />}
           </div>
         }

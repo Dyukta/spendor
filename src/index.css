@@ -46,37 +46,48 @@
 
 /* LIGHT MODE override */
 [data-theme='light'] {
-  --bg-base:        #f5f3ef;
-  --bg-surface:     #ffffff;
-  --bg-surface-alt: #f0ede8;
-  --bg-hover:       #e8e4de;
-  --border:         #ddd9d2;
+  /* BASE */
+  --bg-base:        #eef2f7;   /* soft grey-blue page */
+  --bg-surface:     #ffffff;   /* cards */
+  --bg-surface-alt: #f4f7fb;   /* subtle panels */
+  --bg-hover:       #e6ecf5;   /* hover state */
+  --border:         #d6deea;   /* clean borders */
 
-  --text-primary:   #0f0e0c;
-  --text-secondary: #6b6760;
-  --text-muted:     #a09c97;
+  /* TEXT */
+  --text-primary:   #1a2233;   /* strong readable */
+  --text-secondary: #4a5a73;   /* medium */
+  --text-muted:     #7b8aa5;   /* soft */
 
-  --accent:    #0f0e0c;
-  --accent-fg: #f5f3ef;
+  /* ACCENT (keep brand feel but softer) */
+  --accent:    #4f6ef7;
+  --accent-fg: #ffffff;
 
-  --green:    #1a7a4a;
-  --green-bg: #e8f5ee;
-  --red:      #b83232;
-  --red-bg:   #fceaea;
-  --amber:    #a06520;
-  --amber-bg: #fdf3e3;
-  --blue:     #1a4f8a;
-  --blue-bg:  #e8f0fa;
+  /* STATES */
+  --green:    #1f9d63;
+  --green-bg: #e7f6ef;
 
-  --card-balance-bg:     rgba(0,0,0,0.03);
-  --card-balance-border: #ddd9d2;
-  --card-income-bg:      #e8f5ee;
-  --card-income-border:  #1a7a4a;
-  --card-expense-bg:     #fceaea;
-  --card-expense-border: #b83232;
+  --red:      #d64545;
+  --red-bg:   #fdecec;
 
-  --shadow:    0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --amber:    #c58a1c;
+  --amber-bg: #fff6e5;
+
+  --blue:     #3b6edc;
+  --blue-bg:  #eaf1ff;
+
+  /* CARDS (balanced, not harsh) */
+  --card-balance-bg:     #eef3ff;
+  --card-balance-border: #cfd9ff;
+
+  --card-income-bg:      #e7f6ef;
+  --card-income-border:  #b7e4cc;
+
+  --card-expense-bg:     #fdecec;
+  --card-expense-border: #f5b5b5;
+
+  /* SHADOWS (lighter for light UI) */
+  --shadow:    0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.08);
 }
 
 /* ─────────────────────────────
@@ -573,4 +584,32 @@ tr:hover .row-actions { opacity: 1; }
   .page-body    { padding: 20px 16px; }
   .page-grid-2, .page-grid-3, .page-grid-4 { grid-template-columns: 1fr; }
   .sidebar { display: none; }
+}
+
+/* ROW ACTIONS FIX */
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.icon-btn {
+  margin-left: 6px;
+  opacity: 1 !important; /* ALWAYS visible */
+}
+
+/* CLEAR VISUAL HIGHLIGHT */
+.icon-btn.edit {
+  color: var(--blue);
+}
+
+.icon-btn.edit:hover {
+  background: var(--blue-bg);
+}
+
+.icon-btn.delete {
+  color: var(--red);
+}
+
+.icon-btn.delete:hover {
+  background: var(--red-bg);
 }

@@ -12,27 +12,23 @@ export const useTransactionFilters = () => {
   const filtered = useMemo(() => {
     let list = [...transactions];
 
-    // search
+    // FIXED SEARCH (safe + correct field)
     if (search) {
       const q = search.toLowerCase();
-      list = list.filter(
-        (t) =>
-          t.title.toLowerCase().includes(q) ||
-          t.category.toLowerCase().includes(q)
+      list = list.filter((t) =>
+        (t.desc || '').toLowerCase().includes(q) ||
+        (t.category || '').toLowerCase().includes(q)
       );
     }
 
-    // category filter
     if (category !== 'all') {
       list = list.filter((t) => t.category === category);
     }
 
-    // type filter
     if (type !== 'all') {
       list = list.filter((t) => t.type === type);
     }
 
-    // sorting
     const [field, dir] = sortBy.split('-');
 
     list.sort((a, b) => {
