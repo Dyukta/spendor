@@ -46,7 +46,7 @@ export default function TransactionModal({ initial, onSave, onClose }) {
         <div className="modal-body">
           <div className="field">
             <label className="label-caps">Description</label>
-            <input className="field-input" placeholder="e.g. Swiggy Order"
+            <input autoFocus className="field-input" placeholder="e.g. Swiggy Order"
               value={form.desc} onChange={e => set('desc', e.target.value)} />
             {errors.desc && <span className="field-error">{errors.desc}</span>}
           </div>

@@ -10,7 +10,7 @@ export default function Filters({ search, setSearch, category, setCategory, type
         <Search size={14} className="search-icon" />
         <input
           className="field-input search-input"
-          placeholder="Search transactions…"
+          placeholder="Search by description or category…"
           value={search}
           onChange={e => setSearch(e.target.value)}
         />

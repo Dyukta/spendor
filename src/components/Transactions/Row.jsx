@@ -9,7 +9,7 @@ export default function Row({ txn, canEdit, onEdit, onDelete }) {
     <tr className="row">
       <td className="td">{formatDate(txn.date)}</td>
 
-      <td className="td" style={{ fontWeight: 600 }}>
+      <td className="td td-strong">
         {txn.desc}
       </td>
 
@@ -30,15 +30,12 @@ export default function Row({ txn, canEdit, onEdit, onDelete }) {
       </td>
 
       <td className="td td-right">
-        <span className="mono" style={{
-          fontWeight: 600,
-          color: exp ? 'var(--red)' : 'var(--green)'
-        }}>
+        <span className={`mono amount ${exp ? 'expense' : 'income'}`}>
           {exp ? '−' : '+'}{formatCurrency(Math.abs(txn.amount))}
         </span>
       </td>
 
-      {/* ALWAYS VISIBLE + LAST COLUMN */}
+
       {canEdit && (
         <td className="td actions-cell">
           <button className="icon-btn edit" onClick={() => onEdit(txn)}>

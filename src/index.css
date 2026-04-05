@@ -640,3 +640,26 @@ button:active {
   backdrop-filter: blur(6px);
 }
 
+.td-strong { font-weight: 600; }
+
+.amount { font-weight: 600; }
+.amount.income { color: var(--green); }
+.amount.expense { color: var(--red); }
+
+.insight-body {
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.row:hover {
+  background: var(--bg-hover);
+  transition: background 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+.nav-item:hover {
+  background: var(--bg-hover);
+}
