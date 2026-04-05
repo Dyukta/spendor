@@ -50,7 +50,7 @@ export default function Transactions() {
         />
         {!permissions.canAdd && (
           <div className="viewer-notice">
-            Viewing as <strong>Viewer</strong> — switch to Admin in the sidebar to make changes.
+            Viewing as <strong>Viewer</strong> : switch to Admin in the sidebar to make changes.
           </div>
         )}
       </div>

@@ -1,9 +1,8 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, ArrowLeftRight, Lightbulb, Sun, Moon, Download, RotateCcw } from 'lucide-react'
+import { LayoutDashboard, ArrowLeftRight, Lightbulb, Sun, Moon, Download} from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 import { useRole } from '../../context/RoleContext'
 import { useExport } from '../../hooks/useExport'
-import { useTransactions } from '../../context/TransactionsContext'
 
 const NAV = [
   { to: '/',             icon: LayoutDashboard, label: 'Overview'     },
@@ -15,12 +14,10 @@ export default function Sidebar() {
   const { theme, toggle } = useTheme()
   const { role, switchRole, ROLES = {} } = useRole()
   const { exportCSV, exportJSON } = useExport()
-  const { resetData } = useTransactions()
 
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="logo">S</div>
         <strong>Spendor</strong>
       </div>
 
@@ -62,10 +59,6 @@ export default function Sidebar() {
         </button>
         <button className="nav-item" onClick={exportCSV}><Download size={14} />Export CSV</button>
         <button className="nav-item" onClick={exportJSON}><Download size={14} />Export JSON</button>
-        <button className="nav-item danger"
-          onClick={() => window.confirm('Reset all data?') && resetData()}>
-          <RotateCcw size={14} />Reset Data
-        </button>
       </div>
 
       <div className="sidebar-role-card">
