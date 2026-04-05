@@ -10,7 +10,7 @@ export default function SummaryCard({ label, value, delta, deltaLabel, icon: Ico
       {delta !== undefined && delta !== null && (
         <div className="card-delta">
           <span style={{ color: pos ? 'var(--green)' : 'var(--red)' }}>
-            {pos ? '↑' : '↓'} +{Math.abs(delta).toFixed(1)}%
+            {pos ? '↑' : '↓'} {Math.abs(delta).toFixed(1)}%
           </span>
           {deltaLabel && <span className="card-delta-label">{deltaLabel}</span>}
         </div>

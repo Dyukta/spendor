@@ -39,7 +39,7 @@ export default function Insights() {
       variant: monthDiff > 0 ? 'negative' : 'positive',
       body: monthDiff > 0
         ? `Expenses rose ${Math.abs(monthDiff).toFixed(1)}% vs last month.`
-        : `Expenses dropped ${Math.abs(monthDiff).toFixed(1)}% vs last month. Great job!`,
+        : `↓ ${Math.abs(monthDiff).toFixed(1)}% decrease  Great job!`
     },
     {
       icon: PiggyBank, title: 'Savings Rate',

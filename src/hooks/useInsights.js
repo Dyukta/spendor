@@ -5,8 +5,10 @@ import { calcInsights, calcSummary } from '../utils/calc'
 export const useInsights = () => {
   const { transactions } = useTransactions()
 
-  return useMemo(() => ({
-    ...calcInsights(transactions),
-    summary: calcSummary(transactions)
-  }), [transactions])
+  return useMemo(() => {
+    const insights = calcInsights(transactions)
+    const summary = calcSummary(transactions)
+
+    return { ...insights, summary }
+  }, [transactions])
 }

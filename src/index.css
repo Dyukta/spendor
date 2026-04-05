@@ -613,3 +613,30 @@ tr:hover .row-actions { opacity: 1; }
 .icon-btn.delete:hover {
   background: var(--red-bg);
 }
+
+button:active {
+  transform: scale(0.96);
+}
+
+.insight-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* CHART INTERACTIONS */
+.recharts-area-curve {
+  opacity: 0.75;
+  transition: opacity 150ms ease;
+}
+.recharts-area-curve:hover {
+  opacity: 1 !important;
+}
+
+
+/* TOOLTIP POLISH */
+.chart-tooltip {
+  border-radius: 10px;
+  padding: 12px 14px;
+  backdrop-filter: blur(6px);
+}
+

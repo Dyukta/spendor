@@ -3,7 +3,6 @@ import { useTransactions } from '../context/TransactionsContext';
 
 export const useTransactionFilters = () => {
   const { transactions } = useTransactions();
-
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
   const [type, setType] = useState('all');
@@ -31,16 +30,21 @@ export const useTransactionFilters = () => {
 
     const [field, dir] = sortBy.split('-');
 
-    list.sort((a, b) => {
-      const va = a[field];
-      const vb = b[field];
+list.sort((a, b) => {
+  let va = a[field];
+  let vb = b[field];
 
-      if (va === vb) return 0;
+  if (field === 'date') {
+    va = new Date(va);
+    vb = new Date(vb);
+  }
 
-      return dir === 'asc'
-        ? va > vb ? 1 : -1
-        : va < vb ? 1 : -1;
-    });
+  if (va === vb) return 0;
+
+  return dir === 'asc'
+    ? va > vb ? 1 : -1
+    : va < vb ? 1 : -1;
+});
 
     return list;
   }, [transactions, search, category, type, sortBy]);
