@@ -20,8 +20,8 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="logo display">S</div>
-        <strong className="display">Spendor</strong>
+        <div className="logo">S</div>
+        <strong>Spendor</strong>
       </div>
 
       <div className="sidebar-group">
@@ -42,11 +42,12 @@ export default function Sidebar() {
           <button
             key={k}
             onClick={() => switchRole(k)}
-            className={`nav-item${role === k ? ' active' : ''}`}
+            className={`nav-item${role === k ? ' role-active' : ''}`}
           >
             <span style={{
               width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
-              background: k === 'admin' ? 'var(--green)' : 'var(--amber)'
+              background: k === 'admin' ? 'var(--green)' : 'var(--amber)',
+              display: 'inline-block'
             }} />
             {v.label}
           </button>
@@ -67,8 +68,9 @@ export default function Sidebar() {
         </button>
       </div>
 
-      <div style={{ marginTop: 'auto', paddingTop: 12, borderTop: '1px solid var(--border)', fontSize: 12, color: 'var(--text-muted)', padding: '12px 8px 4px' }}>
-        Role: <strong style={{ color: 'var(--text-secondary)' }}>{ROLES[role]?.label}</strong>
+      <div className="sidebar-role-card">
+        <span className="label-caps">Role</span>
+        <strong>{ROLES[role]?.label}</strong>
       </div>
     </aside>
   )

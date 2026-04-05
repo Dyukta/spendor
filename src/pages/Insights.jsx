@@ -1,176 +1,129 @@
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid,
-  Tooltip, ResponsiveContainer, Cell
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
+import { Award, ArrowUpDown, TrendingUp, TrendingDown, PiggyBank, AlertCircle } from 'lucide-react'
+import Header from '../components/layout/Header'
+import StatCard from '../components/cards/StatCard'
+import InsightCard from '../components/cards/InsightCard'
+import { useInsights } from '../hooks/useInsights'
+import { formatCurrency } from '../utils/format'
 
-import {
-  Award, ArrowUpDown, TrendingUp,
-  TrendingDown, PiggyBank, AlertCircle
-} from 'lucide-react';
-
-import Header from '../components/layout/Header';
-import StatCard from '../components/cards/StatCard';
-import InsightCard from '../components/cards/InsightCard';
-import { useInsights } from '../hooks/useInsights';
-import { formatCurrency } from '../utils/format';
-
-/* Reusable tooltip */
-const ChartTooltip = ({ active, payload, label }) => {
-  if (!active || !payload?.length) return null;
-
+const ChartTip = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-md p-2 text-xs shadow">
-      <p className="text-gray-400 mb-1">{label}</p>
-      {payload.map((p) => (
-        <div key={p.name} className="flex justify-between">
-          <span style={{ color: p.fill || p.color }}>{p.name}</span>
+    <div className="chart-tooltip">
+      <div className="chart-tooltip-label">{label}</div>
+      {payload.map(p => (
+        <div key={p.name} className="chart-tooltip-row mono" style={{ color: p.fill || p.color }}>
+          <span>{p.name}</span>
           <span>₹{p.value.toLocaleString('en-IN')}</span>
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
 export default function Insights() {
-  const {
-    topCategory,
-    avgMonthlySpend,
-    monthDiff,
-    savingsRate,
-    spending,
-    monthly,
-    summary,
-  } = useInsights();
+  const { topCategory, avgMonthlySpend, monthDiff, savingsRate, spending, monthly, summary } = useInsights()
 
   const cards = [
     topCategory && {
-      icon: Award,
-      title: 'Top Spending Category',
-      body: `Highest spend: ${topCategory.name} at ${formatCurrency(topCategory.value)}.`,
-      variant: 'warning',
+      icon: Award, title: 'Top Spending Category', variant: 'warning',
+      body: `Highest spend: ${topCategory.name} at ${formatCurrency(-topCategory.value)}.`,
     },
     {
-      icon: ArrowUpDown,
-      title: 'Avg Monthly Spend',
-      body: `You spend ${formatCurrency(avgMonthlySpend)} per month.`,
-      variant: 'info',
+      icon: ArrowUpDown, title: 'Avg Monthly Spend', variant: 'info',
+      body: `You spend ${formatCurrency(-avgMonthlySpend)} per month on average.`,
     },
     monthDiff !== null && {
       icon: monthDiff > 0 ? TrendingUp : TrendingDown,
       title: 'Month-over-Month',
       variant: monthDiff > 0 ? 'negative' : 'positive',
-      body:
-        monthDiff > 0
-          ? `Expenses increased ${Math.abs(monthDiff).toFixed(1)}%.`
-          : `Expenses decreased ${Math.abs(monthDiff).toFixed(1)}%.`,
+      body: monthDiff > 0
+        ? `Expenses rose ${Math.abs(monthDiff).toFixed(1)}% vs last month.`
+        : `Expenses dropped ${Math.abs(monthDiff).toFixed(1)}% vs last month. Great job!`,
     },
     {
-      icon: PiggyBank,
-      title: 'Savings Rate',
-      body:
-        savingsRate >= 20
-          ? `${savingsRate}% savings rate — strong.`
-          : `${savingsRate}% savings rate. Aim for 20%+.`,
+      icon: PiggyBank, title: 'Savings Rate',
       variant: savingsRate >= 20 ? 'positive' : 'warning',
+      body: savingsRate >= 20
+        ? `${savingsRate}% savings rate — above the recommended 20%.`
+        : `${savingsRate}% savings rate. Aim for 20%+.`,
     },
     summary.balance < 0 && {
-      icon: AlertCircle,
-      title: 'Negative Balance',
-      body: `Balance is ${formatCurrency(summary.balance)}.`,
-      variant: 'negative',
+      icon: AlertCircle, title: 'Negative Balance', variant: 'negative',
+      body: `Total balance is ${formatCurrency(summary.balance)}.`,
     },
-  ].filter(Boolean);
+  ].filter(Boolean)
 
   return (
     <>
-      <Header
-        title="Insights"
-        subtitle="Understand your financial patterns"
-      />
+      <Header title="Insights" subtitle="Understand your spending patterns" />
+      <div className="page-body page-stack">
 
-      <div className="p-6 space-y-6">
-
-        {/* Stats */}
-        <div className="grid grid-cols-4 gap-3 md:grid-cols-2">
-          <StatCard
-            label="Savings Rate"
-            value={`${savingsRate}%`}
-            sub="average"
-            accent={savingsRate >= 20 ? '#22c55e' : '#f59e0b'}
-          />
-          <StatCard
-            label="Avg Monthly Spend"
-            value={formatCurrency(avgMonthlySpend)}
-            sub="per month"
-            accent="#3b82f6"
-          />
-          <StatCard
-            label="Total Income"
-            value={formatCurrency(summary.income)}
-            sub="all time"
-            accent="#22c55e"
-          />
-          <StatCard
-            label="Total Expenses"
-            value={formatCurrency(summary.expenses)}
-            sub="all time"
-            accent="#ef4444"
-          />
+        <div className="page-grid-4">
+          <StatCard label="Savings Rate"      value={`${savingsRate}%`}               sub="average"   accent={savingsRate >= 20 ? 'var(--green)' : 'var(--amber)'} />
+          <StatCard label="Avg Monthly Spend" value={formatCurrency(-avgMonthlySpend)} sub="per month"  accent="var(--blue)"  />
+          <StatCard label="Total Income"      value={formatCurrency(summary.income)}   sub="all time"   accent="var(--green)" />
+          <StatCard label="Total Expenses"    value={formatCurrency(summary.expenses)} sub="all time"   accent="var(--red)"   />
         </div>
 
-        {/* Spending Chart */}
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-          <p className="text-sm font-medium mb-3">Spending by Category</p>
-
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={spending}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-
-              <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-              <YAxis tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-
-              <Tooltip content={<ChartTooltip />} />
-
-              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                {spending.map((e, i) => (
-                  <Cell key={i} fill={e.fill} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Monthly Chart */}
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-          <p className="text-sm font-medium mb-3">Monthly Comparison</p>
-
-          <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={monthly}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-
-              <XAxis dataKey="label" tick={{ fontSize: 11 }} />
-              <YAxis tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-
-              <Tooltip content={<ChartTooltip />} />
-
-              <Bar dataKey="income" fill="#22c55e" />
-              <Bar dataKey="expenses" fill="#ef4444" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Insights */}
         <div>
-          <p className="text-sm font-medium mb-3">Key Observations</p>
+          <div className="section-header">
+            <span className="section-title">Spending by Category</span>
+          </div>
+          <div className="surface chart-card">
+            <ResponsiveContainer width="100%" height={260}>
+              <BarChart data={spending} margin={{ top: 4, right: 8, left: 0, bottom: 40 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="name"
+                  tick={{ fontSize: 11, fill: 'var(--text-muted)' }}
+                  axisLine={false} tickLine={false}
+                  angle={-30} textAnchor="end" interval={0} />
+                <YAxis
+                  tick={{ fontSize: 11, fill: 'var(--text-muted)' }}
+                  axisLine={false} tickLine={false}
+                  tickFormatter={v => `₹${(v/1000).toFixed(0)}k`} width={48} />
+                <Tooltip content={<ChartTip />} cursor={{ fill: 'var(--bg-hover)' }} />
+                <Bar dataKey="value" name="Spent" radius={[4,4,0,0]}>
+                  {spending.map((e, i) => <Cell key={i} fill={e.fill} />)}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
 
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-1">
-            {cards.map((c, i) => (
-              <InsightCard key={i} {...c} />
-            ))}
+        <div>
+          <div className="section-header">
+            <span className="section-title">Monthly Comparison</span>
+          </div>
+          <div className="surface chart-card">
+            <ResponsiveContainer width="100%" height={240}>
+              <BarChart data={monthly} barCategoryGap="30%" margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="label"
+                  tick={{ fontSize: 11, fill: 'var(--text-muted)' }}
+                  axisLine={false} tickLine={false} />
+                <YAxis
+                  tick={{ fontSize: 11, fill: 'var(--text-muted)' }}
+                  axisLine={false} tickLine={false}
+                  tickFormatter={v => `₹${(v/1000).toFixed(0)}k`} width={48} />
+                <Tooltip content={<ChartTip />} cursor={{ fill: 'var(--bg-hover)' }} />
+                <Bar dataKey="income"   name="Income"   fill="#4ade80" radius={[3,3,0,0]} />
+                <Bar dataKey="expenses" name="Expenses" fill="#f87171" radius={[3,3,0,0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div>
+          <div className="section-header">
+            <span className="section-title">Key Observations</span>
+          </div>
+          <div className="page-grid-2">
+            {cards.map((c, i) => <InsightCard key={i} {...c} />)}
           </div>
         </div>
 
       </div>
     </>
-  );
+  )
 }

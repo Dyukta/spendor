@@ -1,23 +1,22 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
-const ThemeCtx = createContext()
+const Ctx = createContext()
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
+  const [theme, setTheme] = useState(() => localStorage.getItem('spendor-theme') ?? 'dark')
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    localStorage.setItem('theme', theme)
+    // dark = no attribute (default CSS), light = [data-theme='light']
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light')
+    } else {
+      document.documentElement.removeAttribute('data-theme')
+    }
+    localStorage.setItem('spendor-theme', theme)
   }, [theme])
 
-  return (
-    <ThemeCtx.Provider value={{
-      theme,
-      toggle: () => setTheme(t => t === 'dark' ? 'light' : 'dark')
-    }}>
-      {children}
-    </ThemeCtx.Provider>
-  )
+  const toggle = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
+  return <Ctx.Provider value={{ theme, toggle }}>{children}</Ctx.Provider>
 }
 
-export const useTheme = () => useContext(ThemeCtx)
+export const useTheme = () => useContext(Ctx)

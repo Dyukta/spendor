@@ -1,18 +1,18 @@
 export default function SummaryCard({ label, value, delta, deltaLabel, icon: Icon, variant = 'default' }) {
   const pos = delta >= 0
   return (
-    <div className={`surface card variant-${variant}`}>
-      <div className="flex-between">
+    <div className={`card variant-${variant}`}>
+      <div className="card-top">
         <span className="label-caps">{label}</span>
         {Icon && <span className="card-icon"><Icon size={16} /></span>}
       </div>
       <div className="mono value">{value}</div>
-      {delta !== undefined && (
-        <div style={{ fontSize: 12, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 4 }}>
+      {delta !== undefined && delta !== null && (
+        <div className="card-delta">
           <span style={{ color: pos ? 'var(--green)' : 'var(--red)' }}>
-            {pos ? '↑' : '↓'} {Math.abs(delta).toFixed(1)}%
+            {pos ? '↑' : '↓'} +{Math.abs(delta).toFixed(1)}%
           </span>
-          {deltaLabel && <span style={{ color: 'var(--text-muted)' }}>{deltaLabel}</span>}
+          {deltaLabel && <span className="card-delta-label">{deltaLabel}</span>}
         </div>
       )}
     </div>

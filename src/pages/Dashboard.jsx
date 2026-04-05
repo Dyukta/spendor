@@ -22,9 +22,9 @@ export default function Dashboard() {
 
   const last = monthly.at(-1)
   const prev = monthly.at(-2)
-  const calcDelta = (curr, p) => p ? ((curr - p) / p) * 100 : null
-  const incomeDelta  = last && prev ? calcDelta(last.income,   prev.income)   : null
-  const expenseDelta = last && prev ? calcDelta(last.expenses, prev.expenses) : null
+  const delta = (c, p) => p ? ((c - p) / p) * 100 : null
+  const incomeDelta  = last && prev ? delta(last.income,   prev.income)   : null
+  const expenseDelta = last && prev ? delta(last.expenses, prev.expenses) : null
 
   const handleSave = (data) => {
     data.id ? editTransaction(data) : addTransaction(data)
@@ -44,12 +44,11 @@ export default function Dashboard() {
         subtitle="Your financial summary"
         actions={permissions.canAdd && <AddBtn onClick={() => setModal('add')} />}
       />
-
       <div className="page-body page-stack">
         <div className="page-grid-3">
-          <SummaryCard label="Total Balance" value={formatCurrency(summary.balance)} icon={Wallet}      variant="balance" />
-          <SummaryCard label="Income"        value={formatCurrency(summary.income)}  icon={TrendingUp}  variant="income"  delta={incomeDelta}  deltaLabel="vs last month" />
-          <SummaryCard label="Expenses"      value={formatCurrency(summary.expenses)} icon={TrendingDown} variant="expense" delta={expenseDelta} deltaLabel="vs last month" />
+          <SummaryCard label="Total Balance" value={formatCurrency(summary.balance)}  icon={Wallet}      variant="balance" />
+          <SummaryCard label="Total Income"  value={formatCurrency(summary.income)}   icon={TrendingUp}  variant="income"  delta={incomeDelta}  deltaLabel="vs last month" />
+          <SummaryCard label="Total Expenses" value={formatCurrency(summary.expenses)} icon={TrendingDown} variant="expense" delta={expenseDelta} deltaLabel="vs last month" />
         </div>
 
         <div className="page-grid-2">
@@ -62,14 +61,21 @@ export default function Dashboard() {
             <span className="section-title">Recent Transactions</span>
             {permissions.canAdd && <AddBtn label="Add" onClick={() => setModal('add')} />}
           </div>
-          <Table transactions={transactions.slice(0, 8)} canEdit={permissions.canEdit}
-            onEdit={setModal} onDelete={handleDelete} />
+          <Table
+            transactions={transactions.slice(0, 8)}
+            canEdit={permissions.canEdit}
+            onEdit={setModal}
+            onDelete={handleDelete}
+          />
         </div>
       </div>
 
       {modal && (
-        <TransactionModal initial={modal === 'add' ? null : modal}
-          onSave={handleSave} onClose={() => setModal(null)} />
+        <TransactionModal
+          initial={modal === 'add' ? null : modal}
+          onSave={handleSave}
+          onClose={() => setModal(null)}
+        />
       )}
     </>
   )
