@@ -41,7 +41,6 @@ export default function Dashboard() {
     <>
       <Header
         title="Overview"
-        subtitle="Your financial summary"
         actions={permissions.canAdd && <AddBtn onClick={() => setModal('add')} />}
       />
       <div className="page-body page-stack">
