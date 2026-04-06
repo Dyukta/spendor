@@ -15,10 +15,11 @@ LIVE DEMO → https://dyukta.github.io/spendor/
 
 ## Getting Started
 
-npm install 
-npm run dev 
-No env variables needed. 
-Data is seeded on first load and persisted to localStorage so it survives page refreshes.
+- npm install 
+- npm run dev
+- 
+- No env variables needed. 
+- Data is seeded on first load and persisted to localStorage so it survives page refreshes.
 
 ## What’s in the App
 
