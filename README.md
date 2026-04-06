@@ -43,6 +43,7 @@ Data is seeded on first load and persisted to localStorage so it survives page r
 - Toast notifications for all mutations (add, edit, delete)
 - Handles empty states gracefully
 - Custom chart tooltips and conditional highlights
+- Lazy loaded pages to reduce initial load time
 
 ## Technical Decisions
 
@@ -93,6 +94,4 @@ Data is seeded on first load and persisted to localStorage so it survives page r
 - Minimal seed data — charts may look sparse.
 - Roles frontend-only no server validation.
 - No animations yet.
-- Large bundle chunks (~650 kB) due to library imports, could split code or lazy load charts in a production build
-
-  
+- Large bundle chunks (~650 kB) due to library imports; lazy-loading pages helps reduce initial load
