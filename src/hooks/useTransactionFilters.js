@@ -11,7 +11,6 @@ export const useTransactionFilters = () => {
   const filtered = useMemo(() => {
     let list = [...transactions];
 
-    // FIXED SEARCH (safe + correct field)
     if (search) {
       const q = search.toLowerCase();
       list = list.filter((t) =>
