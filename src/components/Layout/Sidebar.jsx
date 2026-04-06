@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom'
 import { LayoutDashboard, ArrowLeftRight, Lightbulb, Sun, Moon } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 import { useRole } from '../../context/RoleContext'
-import { useState } from 'react'
 
 const NAV = [
   { to: '/',             icon: LayoutDashboard, label: 'Overview'     },
@@ -16,6 +15,8 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
+
+      {/* ── Brand ── */}
       <div className="sidebar-brand">
         <strong>Spendor</strong>
       </div>
@@ -24,47 +25,46 @@ export default function Sidebar() {
         <span className="sidebar-label">Navigation</span>
         {NAV.map(({ to, icon: Icon, label }) => (
           <NavLink
-            key={to} to={to} end={to === '/'}
+            key={to}
+            to={to}
+            end={to === '/'}
             className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
           >
-            <Icon size={16} />{label}
+            <Icon size={15} />
+            {label}
           </NavLink>
         ))}
       </div>
 
       <div className="sidebar-group">
-        <span className="sidebar-label">Actions</span>
+        <span className="sidebar-label">Role</span>
+        {Object.entries(ROLES).map(([k, v]) => (
+          <button
+            key={k}
+            onClick={() => switchRole(k)}
+            className={`nav-item${role === k ? ' role-active' : ''}`}
+          >
+            <span className={`role-dot ${k}`} />
+            {v.label}
+          </button>
+        ))}
+      </div>
 
+      <div className="sidebar-group">
+        <span className="sidebar-label">Actions</span>
         <button className="nav-item" onClick={toggle}>
-          {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+          {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
           {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
         </button>
-
       </div>
 
       <div style={{ marginTop: 'auto' }}>
-        <div className="sidebar-group">
-          <span className="sidebar-label">Role</span>
-          {Object.entries(ROLES).map(([k, v]) => (
-            <button
-              key={k}
-              onClick={() => switchRole(k)}
-              className={`nav-item${role === k ? ' role-active' : ''}`}
-            >
-              <span style={{
-                width: 8, height: 8, borderRadius: '50%',
-                background: k === 'admin' ? 'var(--green)' : 'var(--amber)'
-              }} />
-              {v.label}
-            </button>
-          ))}
-        </div>
-
         <div className="sidebar-role-card">
-          <span className="label-caps">Role</span>
-          <strong>{ROLES[role]?.label}</strong>
+          <span className="label-caps">Active Role</span>
+          <strong>{ROLES[role]?.label ?? role}</strong>
         </div>
       </div>
+
     </aside>
   )
 }
