@@ -1,119 +1,90 @@
-A small frontend project to track finances, view transactions and get a quick idea of where money is going.This is built mainly to show how I approach structuring a UI heavy app.
+A personal finance tracker built as part of a frontend assignment.
+Lets you log transactions, see where your money is going and switch between admin and viewer roles to simulate access control.
 
-### What this is
+LIVE DEMO →
 
-This is not meant to be a full product. There’s no backend, no auth, no real persistence.  
-The goal here was to take a simple problem i.e “show financial activity in a dashboard” and break it down into something clean, understandable and easy to extend.
+##Preview 
 
-### What it does
 
-- Shows a basic financial overview (balance, income, expenses)
-- Displays trends and category wise spending using charts
-- Lists transactions with filtering and search
-- Lets you switch between roles:
-  - Viewer → can only see data
-  - Admin → can add/delete (simulated)
-- Has a separate insights section for simple observations
-- Supports light/dark mode
-- Allows exporting data (CSV/JSON)
+## Getting Started
 
-### Why I built it this way
+npm install 
+npm run dev 
+No env variables needed. 
+Data is seeded on first load and persisted to localStorage so it survives page refreshes.
 
-I tried to keep one main rule while building this: UI should be simple, logic should be separate and nothing should be doing too many things.
+## What’s in the App
 
-### Components
+### Overview Page
+- Summary cards: Total Balance, Income, Expenses
+- Balance trend line chart (income vs expenses over time)
+- Spending breakdown pie chart with tooltips and total labels
+- Recent transactions table (last 8) with edit/delete actions
+### Transactions Page
+- Full transaction list
+- Searchable, filterable, sortable by type/category
+- Add/Edit/Delete transactions — Admin only
+- Modal forms with inline validation
+### Insights Page
+- Stat cards: top spending category, savings rate, average monthly spend
+- Spending by category bar chart
+- Monthly income vs expenses comparison
+- Observation cards: MoM change, savings rate rating
+### Other Features
+- Dark / Light mode toggle
+- Role switching via sidebar (Admin / Viewer) 
+- Toast notifications for all mutations (add, edit, delete)
+- Handles empty states gracefully
+- Custom chart tooltips and conditional highlights
 
-I didn’t want large “do everything” components.  
-So things like:
-- table
-- row
-- filters
-- buttons
-are all split up.
-Even if it feels like more files right now  it makes it easier to:
-  1) change one thing without breaking others
-  2) reuse parts later
+## Technical Decisions
 
-### Context instead of Redux 
+### React + Vite
 
-I went with React Context for:
-- role
-- theme
-- transactions
-Reason:
-- The app is small
-- No need to introduce extra complexity
-- Easier to read and explain
-If this grew bigger I’d probably move to something like Zustand or Redux Toolkit.
+- React for component-based UI and hooks.
+- Vite for fast dev reloads and small bundle.
+- SSR not needed.
 
-### Hooks for logic
+### Vanilla CSS with Custom Properties
 
-Filtering, insights and export logic are not inside components.
-Instead:
-1)'useTransactions' : filtering, sorting, search
-2)'useInsights' : derived values like top category, savings rate
-3)'useExport' : data conversion (CSV/JSON)
-This keeps components focused on rendering and avoids repetition.
+- Started with Tailwind but switched to vanilla CSS because I needed full control over charts, modals and cards.
+- Dark/light theme handled via data-theme on <html>.
+- No framework no black box.
 
-### Why separate Insights page?
+### State Management
 
-At first, insights were part of the dashboard but it started feeling repetitive and cluttered.
-So I split it:
-- Dashboard : overview (numbers + charts)
-- Insights :  interpretation (what the data actually means)
-This made both screens simpler and easier to scan.
+- Transactions: useReducer + Context to keep add/edit/delete logic in one place.
+- Theme & role: useContext — simple and clear.
+- Derived state (filters, insights): useMemo in hooks to avoid unnecessary re-renders.
 
-### Naming decisions
+### Charts (Recharts)
 
-Some names are intentionally short:
-- 'Row.jsx'
-- 'Table.jsx'
-- 'calc.js'
-I avoided overly long names because in real projects those get annoying quickly.  
-The folder structure already gives enough context.
+- Line, bar, pie charts for trends and categories.
+- Custom tooltips, total labels, conditional opacity for top spending slice.
 
-### Structure 
+### RBAC Simulation
 
-Not going too deep here, just how things are split:
-- 'components/' → UI only  
-- 'hooks/' → logic (filtering, insights, export)  
-- 'context/' → global state (role, theme, transactions)  
-- 'pages/' → page-level layout  
-- 'utils/' → calculations and formatting  
-The idea was to keep logic out of UI as much as possible.
+- Admin can CRUD, Viewer sees read only UI.
+- Role toggle persists in localStorage.
+- Demonstrates conditional rendering without backend.
 
-### Assumptions I made
+### LocalStorage Persistence
 
-Since there’s no backend:
-- Data is mocked
-- No authentication
-- Role switching is just simulated from UI
-- No real persistence (can be added later)
+- Transactions, theme role all persist.
+- Seed data fallback in case of corruption.
 
-### Trade-offs
+### UX Decisions
 
-Some conscious decisions while building:
-- Used simple charts instead of advanced analytics to keep focus on structure and readability  
-- Skipped form validation since the goal was UI + state flow not form handling  
-- Used Context instead of heavier state libraries to keep setup simple  
-- Didn’t add backend integration but structured  'TransactionsContext' so API calls can replace mock data easily later  
-Basically tried to balance “good structure” vs “not overbuilding”
+- Toasts on all mutations.
+- window.confirm for delete (quick).
+- Sidebar active state and empty states handled.
 
-### Backend readiness (what happens if this grows)
 
-Right now data is coming from a local file, but:
-- 'TransactionsContext' is already acting like a data layer  
-- CRUD functions (add, delete, update) are centralized there  
-So replacing mock data with API calls would mostly involve:
-- adding fetch/axios inside the context  
-- handling loading/error states  
-No major restructuring needed.
+## Trade-offs / Limitations
+- No mobile nav yet. sidebar hides below 768px.
+- Currency formatting strips sign, handled at call site.
+- Minimal seed data — charts may look sparse.
+- Roles frontend-only no server validation.
+- No animations yet.
 
-### If I had more time
-
-Things I would improve:
-- Add proper form for transactions (with validation)
-- Add local storage or API integration
-- Improve responsiveness for smaller screens
-- Add better feedback (toasts, confirmations)
-- More meaningful insights (patterns over time, not just totals)
+  
