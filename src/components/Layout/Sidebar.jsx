@@ -67,7 +67,7 @@ export default function Sidebar() {
         }}
       >
         <RotateCcw size={15} />
-        Reset Demo Data
+        Reset
       </button>
 
       <div style={{ marginTop: 'auto' }}>
