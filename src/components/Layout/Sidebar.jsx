@@ -5,23 +5,20 @@ import { useRole } from '../../context/RoleContext'
 import { useTransactions } from '../../context/TransactionsContext'
 
 const NAV = [
-  { to: '/',             icon: LayoutDashboard, label: 'Overview'     },
-  { to: '/transactions', icon: ArrowLeftRight,  label: 'Transactions' },
-  { to: '/insights',     icon: Lightbulb,       label: 'Insights'     },
+  { to: '/', icon: LayoutDashboard, label: 'Overview' },
+  { to: '/transactions', icon: ArrowLeftRight, label: 'Transactions' },
+  { to: '/insights', icon: Lightbulb, label: 'Insights' },
 ]
 
 export default function Sidebar() {
   const { theme, toggle } = useTheme()
-  const { role, switchRole, ROLES = {} } = useRole()
-  const { resetTransactions } = useTransactions()
+  const { role, ROLES = {}, switchRole } = useRole() ?? {}
+  const { resetTransactions } = useTransactions() ?? {}
+  const permissions = ROLES[role] ?? {}
 
   return (
     <aside className="sidebar">
-
-      {/* ── Brand ── */}
-      <div className="sidebar-brand">
-        <strong>Spendor</strong>
-      </div>
+      <div className="sidebar-brand"><strong>Spendor</strong></div>
 
       <div className="sidebar-group">
         <span className="sidebar-label">Navigation</span>
@@ -32,8 +29,7 @@ export default function Sidebar() {
             end={to === '/'}
             className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
           >
-            <Icon size={15} />
-            {label}
+            <Icon size={15} /> {label}
           </NavLink>
         ))}
       </div>
@@ -46,8 +42,7 @@ export default function Sidebar() {
             onClick={() => switchRole(k)}
             className={`nav-item${role === k ? ' role-active' : ''}`}
           >
-            <span className={`role-dot ${k}`} />
-            {v.label}
+            <span className={`role-dot ${k}`} /> {v?.label ?? k}
           </button>
         ))}
       </div>
@@ -62,12 +57,9 @@ export default function Sidebar() {
 
       <button
         className="nav-item danger"
-        onClick={() => {
-          if (confirm('Reset to demo data?')) resetTransactions()
-        }}
+        onClick={() => permissions && confirm('Reset demo data?') && resetTransactions?.()}
       >
-        <RotateCcw size={15} />
-        Reset
+        <RotateCcw size={15} /> Reset
       </button>
 
       <div style={{ marginTop: 'auto' }}>
@@ -76,7 +68,6 @@ export default function Sidebar() {
           <strong>{ROLES[role]?.label ?? role}</strong>
         </div>
       </div>
-
     </aside>
   )
 }
