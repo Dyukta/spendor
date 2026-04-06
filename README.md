@@ -2,8 +2,15 @@ A personal finance tracker built as part of a frontend assignment.
 Lets you log transactions, see where your money is going and switch between admin and viewer roles to simulate access control.
 
 LIVE DEMO → https://dyukta.github.io/spendor/
+ 
+## Preview
 
-## Preview 
+| | |
+|---|---|
+| ![image1](https://github.com/user-attachments/assets/10e7b62b-d74f-4603-a893-6991f574e275) | ![image2](https://github.com/user-attachments/assets/726dd26f-2c60-407c-9225-06592d5944ef) |
+| ![image3](https://github.com/user-attachments/assets/95e1415c-cc99-4c03-b091-2b63f48fb026) | ![image4](https://github.com/user-attachments/assets/4f0f5ab4-34db-48d1-9635-dff6e20e2a1c) |
+| ![image5](https://github.com/user-attachments/assets/4d1674ef-0af4-42ab-9653-75222272fcfd) | ![image6](https://github.com/user-attachments/assets/583fd011-8e2b-4a33-a3a7-9837e07e34f3) |
+| ![image7](https://github.com/user-attachments/assets/467a23ba-dc7e-43ed-bfe5-3d2ade91ac04) | |
 
 
 ## Getting Started
