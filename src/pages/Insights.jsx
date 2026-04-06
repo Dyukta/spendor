@@ -104,8 +104,11 @@ export default function Insights() {
                   axisLine={false} tickLine={false} />
                 <YAxis
                   tick={{ fontSize: 11, fill: 'var(--text-muted)' }}
-                  axisLine={false} tickLine={false}
-                  tickFormatter={v => `₹${(v/1000).toFixed(0)}k`} width={48} />
+                    axisLine={false} tickLine={false}
+                    tickFormatter={v => `₹${(v/1000).toFixed(1)}k`}
+                    tickCount={5}
+                    domain={[0, 'dataMax']}
+                    width={52} />
                 <Tooltip content={<ChartTip />} cursor={{ fill: 'var(--bg-hover)' }} />
                 <Bar dataKey="income"   name="Income"   fill="#4ade80" radius={[3,3,0,0]} />
                 <Bar dataKey="expenses" name="Expenses" fill="#f87171" radius={[3,3,0,0]} />

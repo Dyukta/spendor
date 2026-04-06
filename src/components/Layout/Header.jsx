@@ -1,4 +1,4 @@
-export default function Header({ title, subtitle, actions }) {
+export default function Header({ title, actions }) {
   return (
     <header className="header">
       <div>

@@ -752,3 +752,154 @@ tr:hover .row-actions { opacity: 1; }
   .page-grid-2, .page-grid-3, .page-grid-4 { grid-template-columns: 1fr; }
   .sidebar { display: none; }
 }
+
+
+.summary-card-value {
+  min-height: 1.1em;
+  will-change: contents;
+}
+
+/* delta percentage pill */
+.card-delta-pct {
+  font-weight: 700;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  letter-spacing: -0.2px;
+}
+
+.modal-enhanced {
+  max-width: 500px;
+}
+
+/*icon badge  */
+.modal-icon-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+  transition: background var(--transition), color var(--transition);
+}
+.modal-icon-badge.expense {
+  background: var(--red-bg);
+  color: var(--red);
+  border: 1px solid var(--red-border);
+}
+.modal-icon-badge.income {
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+}
+
+/*error state on inputs */
+.field-input-error {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 3px var(--red-bg) !important;
+}
+
+.amount-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.amount-prefix {
+  position: absolute;
+  left: 12px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  pointer-events: none;
+  user-select: none;
+}
+.amount-input {
+  padding-left: 28px !important;
+}
+
+/* hide browser number spinners */
+.amount-input::-webkit-inner-spin-button,
+.amount-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.amount-input[type=number] { -moz-appearance: textfield; }
+
+/* type toggle  */
+.type-toggle {
+  display: flex;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  height: 38px;    
+}
+.type-toggle-btn {
+  flex: 1;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: none;
+  background: var(--bg-surface-alt);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+.type-toggle-btn + .type-toggle-btn {
+  border-left: 1px solid var(--border);
+}
+.type-toggle-btn.expense.active {
+  background: var(--red-bg);
+  color: var(--red);
+}
+.type-toggle-btn.income.active {
+  background: var(--green-bg);
+  color: var(--green);
+}
+.type-toggle-btn:hover:not(.active) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* live preview  */
+.modal-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-alt);
+  border: 1px solid var(--border);
+  gap: 12px;
+  animation: fadeUp 200ms ease both;
+}
+
+/* save button loading state*/
+.modal-save-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 148px;
+  justify-content: center;
+  transition: opacity var(--transition), transform var(--transition),
+              min-width var(--transition);
+}
+.modal-save-btn.saving {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+.modal-save-btn:disabled {
+  pointer-events: none;
+}
+
+.modal-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 600ms linear infinite;
+  flex-shrink: 0;
+}

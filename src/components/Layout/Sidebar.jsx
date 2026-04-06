@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { LayoutDashboard, ArrowLeftRight, Lightbulb, Sun, Moon } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 import { useRole } from '../../context/RoleContext'
+import { useTransactions } from '../../context/TransactionsContext'
 
 const NAV = [
   { to: '/',             icon: LayoutDashboard, label: 'Overview'     },
@@ -12,6 +13,7 @@ const NAV = [
 export default function Sidebar() {
   const { theme, toggle } = useTheme()
   const { role, switchRole, ROLES = {} } = useRole()
+  const { resetTransactions } = useTransactions()
 
   return (
     <aside className="sidebar">
@@ -57,6 +59,13 @@ export default function Sidebar() {
           {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
         </button>
       </div>
+
+      <button className="nav-item danger" onClick={() => {
+  if (confirm('Reset to demo data?')) resetTransactions()
+}}>
+  <RotateCcw size={15} />
+  Reset Demo Data
+</button>
 
       <div style={{ marginTop: 'auto' }}>
         <div className="sidebar-role-card">
