@@ -86,5 +86,6 @@ Data is seeded on first load and persisted to localStorage so it survives page r
 - Minimal seed data — charts may look sparse.
 - Roles frontend-only no server validation.
 - No animations yet.
+- Large bundle chunks (~650 kB) due to library imports, could split code or lazy load charts in a production build
 
   
