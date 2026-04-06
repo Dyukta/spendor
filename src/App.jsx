@@ -8,7 +8,7 @@ const Insights = lazy(() => import("./pages/Insights"));
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/spendor">
       <div className="app-layout">
         <Sidebar />
         <main className="main-content">
