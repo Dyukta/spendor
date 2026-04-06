@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, ArrowLeftRight, Lightbulb, Sun, Moon } from 'lucide-react'
+import { LayoutDashboard, ArrowLeftRight, Lightbulb, Sun, Moon, RotateCcw } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 import { useRole } from '../../context/RoleContext'
 import { useTransactions } from '../../context/TransactionsContext'
@@ -60,12 +60,15 @@ export default function Sidebar() {
         </button>
       </div>
 
-      <button className="nav-item danger" onClick={() => {
-  if (confirm('Reset to demo data?')) resetTransactions()
-}}>
-  <RotateCcw size={15} />
-  Reset Demo Data
-</button>
+      <button
+        className="nav-item danger"
+        onClick={() => {
+          if (confirm('Reset to demo data?')) resetTransactions()
+        }}
+      >
+        <RotateCcw size={15} />
+        Reset Demo Data
+      </button>
 
       <div style={{ marginTop: 'auto' }}>
         <div className="sidebar-role-card">

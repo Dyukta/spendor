@@ -5,9 +5,7 @@ import { formatCurrency } from '../../utils/format'
 const Tip = ({ active, payload }) => {
   if (!active || !payload?.length) return null
 
-const item = payload[0]
-
-const total = spending.reduce((s, e) => s + e.value, 0)
+  const item = payload[0]
 
   return (
     <div className="chart-tooltip">
@@ -24,6 +22,9 @@ export default function SpendingChart() {
   const { spending } = useInsights()
 
   if (!spending.length) return null
+
+  // Compute total here
+  const total = spending.reduce((s, e) => s + e.value, 0)
 
   const max = Math.max(...spending.map(s => s.value))
 
@@ -56,15 +57,25 @@ export default function SpendingChart() {
           </Pie>
 
           {/* CENTER LABEL */}
-          <text x="50%" y="41%" textAnchor="middle" dominantBaseline="middle"
-  style={{ fontSize: 11, fill: 'var(--text-muted)' }}>
-  Total
-</text>
-<text x="50%" y="52%" textAnchor="middle" dominantBaseline="middle"
-  className="mono"
-  style={{ fontSize: 13, fontWeight: 700, fill: 'var(--text-primary)' }}>
-  ₹{total.toLocaleString('en-IN')}
-</text>
+          <text
+            x="50%"
+            y="41%"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            style={{ fontSize: 11, fill: 'var(--text-muted)' }}
+          >
+            Total
+          </text>
+          <text
+            x="50%"
+            y="52%"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className="mono"
+            style={{ fontSize: 13, fontWeight: 700, fill: 'var(--text-primary)' }}
+          >
+            ₹{total.toLocaleString('en-IN')}
+          </text>
 
           <Tooltip content={<Tip />} />
 
