@@ -49,15 +49,5 @@ list.sort((a, b) => {
     return list;
   }, [transactions, search, category, type, sortBy]);
 
-  return {
-    filtered,
-    search,
-    setSearch,
-    category,
-    setCategory,
-    type,
-    setType,
-    sortBy,
-    setSortBy,
-  };
+  return {filtered,search, setSearch, category, setCategory, type, setType, sortBy, setSortBy };
 };

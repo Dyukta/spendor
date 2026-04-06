@@ -23,7 +23,7 @@ export default function SpendingChart() {
 
   if (!spending.length) return null
 
-  // Compute total here
+  
   const total = spending.reduce((s, e) => s + e.value, 0)
 
   const max = Math.max(...spending.map(s => s.value))
@@ -56,7 +56,7 @@ export default function SpendingChart() {
             ))}
           </Pie>
 
-          {/* CENTER LABEL */}
+          
           <text
             x="50%"
             y="41%"

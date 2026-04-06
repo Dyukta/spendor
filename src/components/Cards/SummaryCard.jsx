@@ -6,7 +6,7 @@ function useCountUp(target, duration = 700) {
   const rafRef   = useRef(null)
 
   useEffect(() => {
-    // cancel any in-flight animation
+
     if (rafRef.current) cancelAnimationFrame(rafRef.current)
 
     const start = prevRef.current
@@ -18,7 +18,7 @@ function useCountUp(target, duration = 700) {
     const tick = (now) => {
       const elapsed  = now - startTime
       const progress = Math.min(elapsed / duration, 1)
-      // ease-out cubic
+
       const eased = 1 - Math.pow(1 - progress, 3)
       setDisplay(Math.round(start + diff * eased))
 
@@ -46,15 +46,7 @@ function formatAnimated(n) {
 }
 
 
-export default function SummaryCard({
-  label,
-  value,
-  rawValue,
-  delta,
-  deltaLabel,
-  icon: Icon,
-  variant = 'default',
-}) {
+export default function SummaryCard({ label,value,rawValue,delta,deltaLabel,icon: Icon,variant = 'default'}) {
   const animated     = useCountUp(rawValue ?? 0)
   const displayValue = rawValue !== undefined && rawValue !== null
     ? formatAnimated(animated)
@@ -71,7 +63,7 @@ export default function SummaryCard({
 
   return (
     <div className={`card variant-${variant} summary-card-animated`}>
-      {/* ── top row ── */}
+      
       <div className="card-top">
         <span className="label-caps">{label}</span>
         {Icon && (

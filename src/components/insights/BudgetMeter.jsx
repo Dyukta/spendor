@@ -1,6 +1,3 @@
-// Simple monthly budget progress bars
-// Add to Insights page below the stat cards
-
 const BUDGETS = {
   'Food & Dining': 3000,
   'Bills & Utilities': 2000,
